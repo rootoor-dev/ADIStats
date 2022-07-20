@@ -10,27 +10,30 @@ public class Main
 {
 	public static void main(String[] args) {
 		
-		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@"};
+		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@",18,true};
 		String[] stringarr = new String[objectarr.length];
 		
 	//String regex = "[0-9]+[\\.]?[0-9]*";
 		for(int i=0; i<objectarr.length; i++){
-		    String string = (String)objectarr[i];
-		    if(string instanceof String){
-		        if (string.matches("[0-9]+[\\.]?[0-9]*")) {
-                //System.out.println(objectarr[i] + " is numeric ");
-                stringarr[i] = (String)objectarr[i];
-    		    }else{
-                    if(objectarr[i] == "&" ||objectarr[i] == "#" || objectarr[i] == "INAPPLICABLE"){
-    		            //System.out.println(objectarr[i]+" INAPPLICABLE");
-    		            stringarr[i] = "0";
-    		        }else{
-    		           // System.out.println(objectarr[i]+" NAN");
-    		           stringarr[i] = "NA";
-    		        }
-    		        
+		    
+		    if(objectarr[i] instanceof String){
+    		    String string = (String)objectarr[i];
+    		    if(string instanceof String){
+    		        if (string.matches("[0-9]+[\\.]?[0-9]*")) {
+                    //System.out.println(objectarr[i] + " is numeric ");
+                    stringarr[i] = (String)objectarr[i];
+        		    }else{
+                        if(objectarr[i] == "&" ||objectarr[i] == "#" || objectarr[i] == "INAPPLICABLE"){
+        		            //System.out.println(objectarr[i]+" INAPPLICABLE");
+        		            stringarr[i] = "0";
+        		        }else{
+        		           // System.out.println(objectarr[i]+" NAN");
+        		           stringarr[i] = "NA";
+        		        }
+        		        
+        		    }
     		    }
-		    }else if (objectarr[i] instanceof Integer ){ //..Or not String type but Integer
+    		}else if (objectarr[i] instanceof Integer ){ //..Or not String type but Integer
                 stringarr[i] = String.valueOf(objectarr[i]);
             }else if (objectarr[i] instanceof Float ){ //..Or not String type but Float
                 stringarr[i] = String.valueOf(objectarr[i]);
