@@ -10,9 +10,27 @@ public class Main
 {
 	public static void main(String[] args) {
 		
-		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@",18,true};
+		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@",18,true,"",'187'};
 		String[] stringarr = new String[objectarr.length];
 		
+		/*
+        Types of Java Literals
+        Java allows 6 kinds of literals which are:
+        
+        1. Integer literals
+        2. Floating literals
+        3. Boolean literals
+        4. Character literals
+        5. String literals
+        6. Null literal
+        
+        //////////////////////////////////////////////////
+        Some invalid string literals are:
+
+        String s = HelloWorld; //No Double quotes
+        String s = ‘TechVidvan’; //Single quote not allowed
+        
+		*/
 	//String regex = "[0-9]+[\\.]?[0-9]*";
 		for(int i=0; i<objectarr.length; i++){
 		    
@@ -39,12 +57,12 @@ public class Main
                 stringarr[i] = String.valueOf(objectarr[i]);
             }else if (objectarr[i] instanceof Double ){ //..Or not String type but Double
                 stringarr[i] = String.valueOf(objectarr[i]);
-            }/*else{ //..Or not String type but Boolean 
+            }else if (objectarr[i] instanceof Character ){ //..Or not String type but Boolean 
                 //replace the symbol by this value: "NA"
                 objectarr[i] = "NA";
                 // convert now to string by casting or else
                 stringarr[i] = (String) objectarr[i];
-            }*/
+            }
 		}// for
 		
 		
