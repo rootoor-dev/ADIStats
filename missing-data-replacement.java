@@ -10,7 +10,7 @@ public class Main
 {
 	public static void main(String[] args) {
 		
-		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@",18,true,"",'187'};
+		Object[] objectarr = new Object[]{"?","#","&","5","NA","-", "5", "10", "INAPPLICABLE", "15","@",18,true,""};
 		String[] stringarr = new String[objectarr.length];
 		
 		/*
