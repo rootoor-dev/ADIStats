@@ -11,6 +11,18 @@ import java.util.Random;
  *
  ******************************************************************************/
 
+/*
+
+Input : mat[][] = {{1, 2, 3}, 
+                  {4, 5, 6}, 
+                  {7, 8, 9}}
+Output : Row-wise: 1 2 3 4 5 6 7 8 9
+         Col-wise : 1 4 7 2 5 8 3 6 9
+
+
+
+
+*/
 public class Matrix {
 
     // return a random m-by-n matrix with values between 0 and 1
