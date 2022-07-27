@@ -14,6 +14,15 @@ is immediately written according to the order of the rows also except the vector
 according to the order of the columns (columns-major order) to give in two dimensions a matrix-column or column-vector. 
 What is obtained in programming by transpose (transposed of the vector).
 
+-------------------------------------------
+Input : mat[][] = {{1, 2, 3}, 
+                  {4, 5, 6}, 
+                  {7, 8, 9}}
+Output : Row-wise: 1 2 3 4 5 6 7 8 9
+         Col-wise : 1 4 7 2 5 8 3 6 9
+------------------------------------------- 
+	 
+
 */
 
 
