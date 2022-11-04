@@ -182,7 +182,7 @@ plot(
   ylim = c(-1.5, 1.5), # limites de l'axe des y)
   xlab = "La variable z", # titre pour l'axe des x
   ylab = "Le sinus  de z", # titre pour l'axe des y
-  main = "La fonction sinus entre -pi et pi" # titre général pour le graphique. On peut utiliser "title" mais hors de la fonction
+  main = "La fonction sinus entre -pi et pi" # titre général pour le graphique. On peut utiliser "title" mais hors de la fonction plot()
 
 ) 
 
@@ -204,7 +204,15 @@ legend("topleft", c("obs","logit"),lwd=3,col=c("red","blue")) ## légende en hau
 
 voir l''aide pour les options en tapant "?legend"
 
-# 
+# RAPPELS STATS
+
+Définition
+
+Une fonction est dite affine si elle est caractérisée par une formule de type f(x) = ax + b 
+où:
+- "a" est une constante réelle positive ou négative appelée **coefficient directeur**.
+- "b"  est une constante réelle positive ou négative appelée **ordonnée à l''origine**. 
+"b" doit être non nul sinon la formule devient f(x) = ax ce qui caractérise les fonctions linéaires.
 
 ```
 
@@ -215,8 +223,8 @@ voir l''aide pour les options en tapant "?legend"
 Soit l'ensemble de donnees constitue par ce qui suit :
 
 Montants |	Chiffre d'affaire	| Charges totales
-0		 |   0                  |    500000 
-580000	 |   580000	            |    580000
+0		     |   0                |    500000 
+580000	 |   580000	          |    580000
 1000000	 |   1000000	        |    637931,03
 2000000	 |   2000000	        |    775862,1
 3000000	 |   3000000	        |    913793,1
@@ -242,21 +250,21 @@ rm(list=ls(all=TRUE)) # effacer toutes les données
 mydata <- read.csv("staCA.csv", header=TRUE, sep=",") # importation si setwd() présent
 # Voir les noms des colonnes
 names(mydata)
-# Definir les variables utiles
+# Définir les variables utiles
 y <- mydata$Charges.totales
 x <- mydata$Chiffre.d.affaire
 m <- mydata$Montant
-fx = function(x){x} ## la fonction f(x)=x ou equation de droite y=x
+fx = function(x){x} ## la fonction affine f(x)=x ou équation de droite  (E): y=x
 # Tracer le nuage des points X et Y
-plot(x,
-y,
+plot(
+x, ## abscisses
+y, ## ordonnées
 type="l",
 col="red",
 lwd="2",
 xlab="Chiffres d'affaire (CA)", 
 ylab="Charges totales (CT)", 
-main="Représentation du seuil de rentabilité"
-
+main="Représentation du seuil de rentabilité" ## équivaut à "title" mais en dehors de la fonction plot()
 )
 
 # Tracer  par superposition, la courbe ou droite représentative de y=x ou y=f(x)=x
@@ -284,7 +292,7 @@ coefficientsEquation <- equation$coefficients ## ou bien taper directement ==>> 
 
 # pente ou coefficient
 penteA <- equation$coefficients[2] # [2] correspond  à la pente
-ordB <- equation$coefficients[1] # [1] correspond  à la pente
+ordB <- equation$coefficients[1] # [1] correspond  à l'ordonnée à l'origine
 a<-penteA ## facultatif
 b<- ordB ## facultatif
 
@@ -349,14 +357,48 @@ dev.off() ## arrêter l'exportation
 ## Correction exercice 1 METHODE 2
 
 ```R
-library(ggplot2)
-ggplot(data = data.frame(x = c(0:5, 5:0), y = rep(0:5, 2)), aes(x, y)) +
+## PREALABLE
+## Créez un dossier nommé R dans votre distre C:// 
+#
+# Regler le répertoire de travail
+getwd() ## voir le répertoire courant
+setwd("C:/R/") ## regler le répertoire de travail à C:/R/. Cela permet de ne plus indiquer là où cela devrait.
+# Importer les donnees
+rm(list=ls(all=TRUE)) # effacer toutes les données
+## mydata <- read.csv("C:/R/staCA.csv", header=TRUE, sep=",") # importation si setwd() absent
+mydata <- read.csv("staCA.csv", header=TRUE, sep=",") # importation si setwd() présent
+# Voir les noms des colonnes
+names(mydata)
+# Définir les variables utiles
+y <- mydata$Charges.totales
+x <- mydata$Chiffre.d.affaire
+m <- mydata$Montant
+fx = function(x){x} ## la fonction affine f(x)=x ou équation de droite  (E): y=x
+## Réalisation de la régression linéaire simple
+# Pour déterminer la droite de régression, on ajuste un modèle linéaire simple aux données, 
+# à l’aide de la fonction “lm”
+equation <- lm(y~x) ## on peut ecrire aussi equation <- glm(y~x, family="binomial")
+coefficientsEquation <- equation$coefficients ## ou bien taper directement ==>>  summary(equation)$coefficients
+
+# pente ou coefficient
+penteA <- equation$coefficients[2] # [2] correspond  à la pente (Slope en Anglais)
+ordB <- equation$coefficients[1] # [1] correspond  à l'ordonnée à l'origine (Intersect en Anglais)
+a<-penteA ## facultatif
+b<- ordB ## facultatif
+# Déterminer SR(x0,y0) tel que y1=y2
+x0 <- solve((1-penteA),ordB) ## solve(a,b) permet de resoudre les equations du type "ax = b"
+y0 <- x0
+# Tracer le nuage des points X et Y
+library(ggplot2) ## importer la libairie (facilitatrice) de tracé
+ggplot(data = data.frame(x = x, y = y), aes(x, y)) +
   geom_point() +
-  geom_abline(intercept = 0, slope = 1) +
-  geom_abline(intercept = 5, slope = -1) +
-  geom_segment(x = 2.5, xend = 2.5, y = -Inf, yend = 2.5, linetype = 2, colour = "red") +
-  geom_segment(x = -Inf, xend = 2.5, y = 2.5, yend = 2.5, linetype = 2, colour = "red") +
-  geom_label(x = 2.5, y = 2.5, label = "Intersection at (2.5, 2.5)", size = 3, colour = "red")
+  geom_abline(intercept = ordB, slope = penteA) + ## y1 = penteA*x+ordoB
+  geom_abline(intercept = 0, slope = 1) + ## y2 = x soit y2 = 1*x+0
+  geom_segment(x = x0, xend = x0, y = -Inf, yend = y0, linetype = 2, colour = "red") +
+  geom_segment(x = -Inf, xend = x0, y = y0, yend = y0, linetype = 2, colour = "red") +
+  geom_label(x = x0, y = y0, label = "SR", size = 3, colour = "green")
+
+
 ```
 
 
