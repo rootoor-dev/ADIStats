@@ -220,7 +220,7 @@ où:
 
 ## Exercice 1
 
-Soit l'ensemble de donnees constitue par ce qui suit :
+Soit l'ensemble de données constitué par ce qui suit :
 
 Montants |	Chiffre d'affaire	| Charges totales
 0		     |   0                |    500000 
